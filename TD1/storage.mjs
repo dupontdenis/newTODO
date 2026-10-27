@@ -1,4 +1,4 @@
-const STORAGE_KEY = "tasksT";
+const STORAGE_KEY = "tasksTD";
 
 export function loadTasks() {
   const data = localStorage.getItem(STORAGE_KEY);
@@ -14,13 +14,16 @@ export function loadTasks() {
       return [];
     }
 
-    return tasks.filter(
-      (task) =>
-        task !== null &&
-        typeof task === "object" &&
-        typeof task.id === "string" &&
-        typeof task.title === "string",
-    );
+return tasks.filter(
+  (task) =>
+    task !== null &&
+    typeof task === "object" &&
+    typeof task.id === "string" &&
+    typeof task.title === "string" &&
+    typeof task.content === "string" &&
+    typeof task.date === "number",
+);
+
   } catch {
     return [];
   }
