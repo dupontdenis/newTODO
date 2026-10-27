@@ -1,69 +1,135 @@
+import { createTask } from "./tasks.mjs";
 import { applyFilter, setupFilters } from "./filters.mjs";
 import { loadTasks, saveTasks } from "./storage.mjs";
 
 const taskList = document.querySelector("#tasks");
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
+const submitButton = form.querySelector("button[type='submit']");
 
 let tasks = loadTasks();
 
 function renderTasks() {
-    applyFilter(tasks, taskList);
+  taskList.innerHTML = tasks.map((task) => createTask(task)).join("");
+  applyFilter(tasks, taskList);
 }
 
+// Initialiser les filtres
 setupFilters(taskList, () => tasks);
 
 // Ajouter une tâche
-form.addEventListener("submit", event => {
-    event.preventDefault();
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-    const text = taskInput.value.trim();
+  const text = taskInput.value.trim();
+
+  if (text === "") {
+    return;
+  }
+
+  const task = {
+    id: crypto.randomUUID(),
+    text: text,
+    completed: false,
+  };
+
+  tasks.push(task);
+
+  saveTasks(tasks);
+  renderTasks();
+
+  taskInput.value = "";
+  taskInput.focus();
+});
+
+// Gérer les actions dans la liste
+taskList.addEventListener("click", (event) => {
+  const button = event.target.closest("button");
+
+  if (!button) {
+    return;
+  }
+
+  const li = button.closest("li");
+
+  if (!li) {
+    return;
+  }
+
+  const task = tasks.find((item) => item.id === li.dataset.id);
+
+  if (!task) {
+    return;
+  }
+
+  // Supprimer une tâche
+  if (button.matches('[data-action="delete"]')) {
+    tasks = tasks.filter((item) => item.id !== task.id);
+
+    saveTasks(tasks);
+    renderTasks();
+    return;
+  }
+
+  // Commencer la modification
+  if (button.matches('[data-action="edit"]')) {
+    const span = li.querySelector("span");
+    const input = document.createElement("input");
+
+    input.type = "text";
+    input.className = "form-control";
+    input.value = task.text;
+
+    span.replaceWith(input);
+
+    button.dataset.action = "validate";
+    button.textContent = "Valider";
+    button.classList.replace("btn-warning", "btn-success");
+
+    input.focus();
+    return;
+  }
+
+  // Valider la modification
+  if (button.matches('[data-action="validate"]')) {
+    const input = li.querySelector("input.form-control");
+    const text = input.value.trim();
 
     if (text === "") {
-        return;
+      input.focus();
+      return;
     }
 
-    const task = {
-        id: crypto.randomUUID(),
-        text: text,
-        completed: false
-    };
-
-    tasks.push(task);
+    task.text = text;
 
     saveTasks(tasks);
     renderTasks();
-
-    taskInput.value = "";
-    taskInput.focus();
+  }
 });
 
-// Gérer les cases à cocher et les boutons
-taskList.addEventListener("click", event => {
-    const li = event.target.closest("li");
+// Changer l'état d'une tâche
+taskList.addEventListener("change", (event) => {
+  if (!event.target.matches('[data-action="toggle"]')) {
+    return;
+  }
 
-    if (!li) {
-        return;
-    }
+  const li = event.target.closest("li");
 
-    const task = tasks.find(item => item.id === li.dataset.id);
+  if (!li) {
+    return;
+  }
 
-    if (!task) {
-        return;
-    }
+  const task = tasks.find((item) => item.id === li.dataset.id);
 
-    // Modifier l'état d'une tâche
-    if (event.target.matches('[data-action="toggle"]')) {
-        task.completed = event.target.checked;
-    }
+  if (!task) {
+    return;
+  }
 
-    // Supprimer une tâche
-    if (event.target.matches('[data-action="delete"]')) {
-        tasks = tasks.filter(item => item.id !== task.id);
-    }
+  task.completed = event.target.checked;
 
-    saveTasks(tasks);
-    renderTasks();
+  saveTasks(tasks);
+  renderTasks();
 });
 
+// Initialisation
 renderTasks();

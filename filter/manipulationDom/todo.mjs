@@ -1,6 +1,6 @@
-import { createTask } from "./tasks.mjs";
-import { applyFilter, setupFilters } from "./filters.mjs";
-import { saveTasks, loadTasks } from "./storage.mjs";
+import { createTask } from "./manipulationDom/tasks.mjs";
+import { applyFilter, setupFilters } from "./manipulationDom/filters.mjs";
+import { saveTasks, loadTasks } from "./manipulationDom/storage.mjs";
 
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
