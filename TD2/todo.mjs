@@ -71,7 +71,5 @@ taskListElement.addEventListener("click", (event) => {
   `;
 });
 
-
-
 // Affichage initial
 renderTasks();
