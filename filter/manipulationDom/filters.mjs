@@ -1,7 +1,7 @@
 let currentFilter = "all";
 
-export function applyFilter(taskList) {
-  taskList.querySelectorAll("li").forEach((li) => {
+export function applyFilter(taskListElement) {
+  taskListElement.querySelectorAll("li").forEach((li) => {
     const completed = li.dataset.completed === "true";
 
     const visible =
@@ -21,10 +21,10 @@ export function applyFilter(taskList) {
   });
 }
 
-export function setupFilters(taskList) {
+export function setupFilters(taskListElement) {
   const filterButtons = document.querySelectorAll(".filter-btn");
 
-  console.log("setupFilters called with taskList:", taskList);
+  console.log("setupFilters called with taskListElement:", taskListElement);
   console.log("filterButtons:", filterButtons.length);
 
   filterButtons.forEach((button) => {
@@ -45,7 +45,7 @@ export function setupFilters(taskList) {
       });
 
       // Appliquer le filtre
-      applyFilter(taskList);
+      applyFilter(taskListElement);
     });
   });
 }

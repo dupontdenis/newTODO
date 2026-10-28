@@ -1,10 +1,10 @@
-import { createTask } from "./manipulationDom/tasks.mjs";
-import { applyFilter, setupFilters } from "./manipulationDom/filters.mjs";
-import { saveTasks, loadTasks } from "./manipulationDom/storage.mjs";
+import { createTask } from "./tasks.mjs";
+import { applyFilter, setupFilters } from "./filters.mjs";
+import { saveTasks, loadTasks } from "./storage.mjs";
 
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
-const taskList = document.querySelector("#tasks");
+const taskListElement = document.querySelector("#tasks");
 const submitButton = form.querySelector("button[type='submit']");
 
 // Gérer l'état du bouton Ajouter
@@ -28,16 +28,16 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  createTask(taskList, text);
-  saveTasks(taskList);
-  applyFilter(taskList);
+  createTask(taskListElement, text);
+  saveTasks(taskListElement);
+  applyFilter(taskListElement);
 
   taskInput.value = "";
   updateSubmitButton();
 });
 
 // Gérer les actions dans la liste
-taskList.addEventListener("click", (event) => {
+taskListElement.addEventListener("click", (event) => {
   const button = event.target.closest("button");
 
   if (!button) {
@@ -53,7 +53,7 @@ taskList.addEventListener("click", (event) => {
   // Supprimer
   if (button.classList.contains("remove-btn")) {
     li.remove();
-    saveTasks(taskList);
+    saveTasks(taskListElement);
     return;
   }
 
@@ -99,13 +99,13 @@ taskList.addEventListener("click", (event) => {
     button.className = "btn btn-warning btn-sm edit-btn";
     button.textContent = "Modifier";
 
-    saveTasks(taskList);
-    applyFilter(taskList);
+    saveTasks(taskListElement);
+    applyFilter(taskListElement);
   }
 });
 
 // Changer l'état complet/incomplet
-taskList.addEventListener("change", (event) => {
+taskListElement.addEventListener("change", (event) => {
   if (!event.target.matches("input[type='checkbox']")) {
     return;
   }
@@ -120,16 +120,16 @@ taskList.addEventListener("change", (event) => {
     span.classList.toggle("text-decoration-line-through", completed);
   }
 
-  saveTasks(taskList);
-  applyFilter(taskList);
+  saveTasks(taskListElement);
+  applyFilter(taskListElement);
 });
 
 // Initialisation
-setupFilters(taskList);
+setupFilters(taskListElement);
 
 loadTasks().forEach((task) => {
-  createTask(taskList, task.text, task.completed);
+  createTask(taskListElement, task.text, task.completed);
 });
 
-applyFilter(taskList);
+applyFilter(taskListElement);
 updateSubmitButton();

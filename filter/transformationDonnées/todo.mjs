@@ -2,7 +2,7 @@ import { createTask } from "./tasks.mjs";
 import { applyFilter, setupFilters } from "./filters.mjs";
 import { loadTasks, saveTasks } from "./storage.mjs";
 
-const taskList = document.querySelector("#tasks");
+const taskListElement = document.querySelector("#tasks");
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
 const submitButton = form.querySelector("button[type='submit']");
@@ -10,12 +10,12 @@ const submitButton = form.querySelector("button[type='submit']");
 let tasks = loadTasks();
 
 function renderTasks() {
-  taskList.innerHTML = tasks.map((task) => createTask(task)).join("");
-  applyFilter(tasks, taskList);
+  taskListElement.innerHTML = tasks.map((task) => createTask(task)).join("");
+  applyFilter(taskListElement, tasks);
 }
 
 // Initialiser les filtres
-setupFilters(taskList, () => tasks);
+setupFilters(taskListElement, () => tasks);
 
 // Ajouter une tâche
 form.addEventListener("submit", (event) => {
@@ -43,7 +43,7 @@ form.addEventListener("submit", (event) => {
 });
 
 // Gérer les actions dans la liste
-taskList.addEventListener("click", (event) => {
+taskListElement.addEventListener("click", (event) => {
   const button = event.target.closest("button");
 
   if (!button) {
@@ -108,7 +108,7 @@ taskList.addEventListener("click", (event) => {
 });
 
 // Changer l'état d'une tâche
-taskList.addEventListener("change", (event) => {
+taskListElement.addEventListener("change", (event) => {
   if (!event.target.matches('[data-action="toggle"]')) {
     return;
   }
