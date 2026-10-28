@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Test du point d'arrêt click</title>
+</head>
+
+<body>
+  <h1>Test des événements</h1>
+
+  <form id="test-form">
+    <input id="task" type="text" placeholder="Une tâche">
+    <button type="submit">Ajouter</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const form = document.querySelector("#test-form");
+    const button = form.querySelector("button");
+    const message = document.querySelector("#message");
+
+    button.addEventListener("click", () => {
+      console.log("1. Événement click");
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      console.log("2. Événement submit");
+      message.textContent = "Formulaire soumis !";
+    });
+
+    document.addEventListener("click", (event) => {
+      console.log("3. Click sur le document :", event.target.tagName);
+    });
+  </script>
+</body>
+
+</html>

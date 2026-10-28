@@ -16,21 +16,25 @@ taskInput.addEventListener("input", () => {
 // Créer une tâche
 function createTask(taskValue) {
   const li = document.createElement("li");
-  li.className =
-    "list-group-item d-flex justify-content-between align-items-center";
+  li.classList.add(
+    "list-group-item",
+    "d-flex",
+    "justify-content-between",
+    "align-items-center",
+  );
 
   const span = document.createElement("span");
   span.textContent = taskValue;
 
   const buttons = document.createElement("div");
-  buttons.className = "d-flex gap-2";
+  buttons.classList.add("d-flex", "gap-2");
 
   const editButton = document.createElement("button");
-  editButton.className = "btn btn-warning btn-sm edit-btn";
+  editButton.classList.add("btn", "btn-warning", "btn-sm", "edit-btn");
   editButton.textContent = "Modifier";
 
   const removeButton = document.createElement("button");
-  removeButton.className = "btn btn-danger btn-sm remove-btn";
+  removeButton.classList.add("btn", "btn-danger", "btn-sm", "remove-btn");
   removeButton.textContent = "Supprimer";
 
   buttons.append(editButton, removeButton);
@@ -77,11 +81,16 @@ taskListElement.addEventListener("click", (event) => {
   if (event.target.classList.contains("edit-btn")) {
     const input = document.createElement("input");
     input.type = "text";
-    input.className = "form-control";
+    input.classList.add("form-control");
     input.value = span.textContent;
 
     const validateButton = document.createElement("button");
-    validateButton.className = "btn btn-success btn-sm validate-btn";
+    validateButton.classList.add(
+      "btn",
+      "btn-success",
+      "btn-sm",
+      "validate-btn",
+    );
     validateButton.textContent = "Valider";
 
     span.replaceWith(input);
@@ -105,7 +114,7 @@ taskListElement.addEventListener("click", (event) => {
     input.replaceWith(newSpan);
 
     const editButton = document.createElement("button");
-    editButton.className = "btn btn-warning btn-sm edit-btn";
+    editButton.classList.add("btn", "btn-warning", "btn-sm", "edit-btn");
     editButton.textContent = "Modifier";
 
     event.target.replaceWith(editButton);

@@ -77,7 +77,7 @@ taskListElement.addEventListener("click", (event) => {
     const input = document.createElement("input");
 
     input.type = "text";
-    input.className = "form-control";
+    input.classList.add("form-control");
     input.value = task.text;
 
     span.replaceWith(input);

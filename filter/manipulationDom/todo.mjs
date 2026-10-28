@@ -63,12 +63,13 @@ taskListElement.addEventListener("click", (event) => {
     const input = document.createElement("input");
 
     input.type = "text";
-    input.className = "form-control edit-input";
+    input.classList.add("form-control", "edit-input");
     input.value = span.textContent;
 
     span.replaceWith(input);
 
-    button.className = "btn btn-success btn-sm validate-btn";
+    button.classList.replace("btn-warning", "btn-success");
+    button.classList.replace("edit-btn", "validate-btn");
     button.textContent = "Valider";
 
     input.focus();
@@ -96,7 +97,8 @@ taskListElement.addEventListener("click", (event) => {
     li.dataset.originalText = text;
     input.replaceWith(span);
 
-    button.className = "btn btn-warning btn-sm edit-btn";
+    button.classList.replace("btn-success", "btn-warning");
+    button.classList.replace("validate-btn", "edit-btn");
     button.textContent = "Modifier";
 
     saveTasks(taskListElement);
