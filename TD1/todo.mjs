@@ -1,5 +1,6 @@
 import { createTask } from "./tasks.mjs";
 import { loadTasks, saveTasks } from "./storage.mjs";
+import { escapeHTML } from "./utils.mjs";
 
 const taskListElt = document.querySelector("#tasks");
 const form = document.querySelector("form");
@@ -70,20 +71,7 @@ taskListElt.addEventListener("click", (event) => {
   `;
 });
 
-// Échapper les données avant leur insertion dans le HTML
-function escapeHTML(text) {
-  return String(text).replace(/[&<>"']/g, (character) => {
-    const entities = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    };
 
-    return entities[character];
-  });
-}
 
 // Affichage initial
 renderTasks();

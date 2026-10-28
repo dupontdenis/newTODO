@@ -1,3 +1,4 @@
+import { escapeHTML } from "./utils.mjs";
 export function createTask(task) {
   return `
         <li class="list-group-item">
@@ -11,18 +12,4 @@ export function createTask(task) {
             </button>
         </li>
     `;
-}
-
-function escapeHTML(text) {
-  return String(text).replace(/[&<>"']/g, (character) => {
-    const entities = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    };
-
-    return entities[character];
-  });
 }
