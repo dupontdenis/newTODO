@@ -1,6 +1,6 @@
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
-const taskList = document.querySelector("#tasks");
+const taskListElement = document.querySelector("#tasks");
 const submitButton = form.querySelector("button[type='submit']");
 
 submitButton.disabled = true;
@@ -35,7 +35,7 @@ function createTask(taskValue) {
 
   buttons.append(editButton, removeButton);
   li.append(span, buttons);
-  taskList.append(li);
+  taskListElement.append(li);
 }
 
 // Ajouter une tâche
@@ -58,7 +58,7 @@ form.addEventListener("submit", (event) => {
 });
 
 // Modifier ou supprimer une tâche
-taskList.addEventListener("click", (event) => {
+taskListElement.addEventListener("click", (event) => {
   const li = event.target.closest("li");
 
   if (!li) {
@@ -118,7 +118,7 @@ taskList.addEventListener("click", (event) => {
 function saveTasks() {
   const tasks = [];
 
-  taskList.querySelectorAll("li span").forEach((span) => {
+  taskListElement.querySelectorAll("li span").forEach((span) => {
     tasks.push(span.textContent);
   });
 

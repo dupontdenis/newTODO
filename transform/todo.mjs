@@ -1,7 +1,7 @@
 import { createTask } from "./tasks.mjs";
 import { loadTasks, saveTasks } from "./storage.mjs";
 
-const taskList = document.querySelector("#tasks");
+const taskListElement = document.querySelector("#tasks");
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#title");
 
@@ -10,7 +10,7 @@ let tasks = loadTasks();
 
 // Afficher les tâches
 function renderTasks() {
-  taskList.innerHTML = tasks.map((task) => createTask(task)).join("");
+  taskListElement.innerHTML = tasks.map((task) => createTask(task)).join("");
 }
 
 // Ajouter une tâche

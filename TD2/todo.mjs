@@ -2,7 +2,7 @@ import { createTask } from "./tasks.mjs";
 import { loadTasks, saveTasks } from "./storage.mjs";
 import { escapeHTML } from "./utils.mjs";
 
-const taskListElt = document.querySelector("#tasks");
+const taskListElement = document.querySelector("#tasks");
 const form = document.querySelector("form");
 const titleInput = document.querySelector("#title");
 const contentInput = document.querySelector("#content");
@@ -12,7 +12,7 @@ let tasks = loadTasks();
 
 // Afficher la liste
 function renderTasks() {
-  taskListElt.innerHTML = tasks.map((task) => createTask(task)).join("");
+  taskListElement.innerHTML = tasks.map((task) => createTask(task)).join("");
 }
 
 // Ajouter une tâche
@@ -43,7 +43,7 @@ form.addEventListener("submit", (event) => {
 });
 
 // Afficher le contenu d'une tâche
-taskListElt.addEventListener("click", (event) => {
+taskListElement.addEventListener("click", (event) => {
   const button = event.target.closest('[data-action="detail"]');
 
   if (!button) {
