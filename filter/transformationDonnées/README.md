@@ -1,15 +1,21 @@
 # Filtres par transformation des données
 
-Cette variante garde les tâches dans un tableau JavaScript d'objets (`id`, `text`, `completed`), puis reconstruit la liste HTML à partir de ce tableau. Les filtres « Toutes », « Incomplètes » et « Complètes » sélectionnent les tâches à afficher. L'ajout, le changement d'état et la suppression sont sauvegardés dans `localStorage` sous la clé `tasksTransformationDonnées`.
+Cette variante conserve les tâches dans un tableau d'objets JavaScript (`id`, `text`, `completed`). Elle permet de les ajouter, modifier, terminer et supprimer. Les filtres « Toutes », « Incomplètes » et « Complètes » sélectionnent les objets à afficher; la liste HTML est ensuite reconstruite à partir des données. Le tableau est sauvegardé dans `localStorage` sous la clé `tasksTransformationDonnées`.
 
-## Lancer la page
+## Objectif pédagogique
 
-Ouvrez `index.html` avec un serveur web local, par exemple l'extension Live Server de VS Code. Bootstrap 5.3.3 est chargé depuis un CDN, donc une connexion Internet est nécessaire pour ses styles.
+Le tableau `tasks` est la source de vérité : les actions modifient les objets ou le tableau, puis le rendu est actualisé. Le filtrage utilise `filter()` pour produire les tâches visibles avant de les transformer en HTML.
 
-## Organisation
+Comparez cette variante avec `../manipulationDom/`. Dans les deux cas, l'utilisateur voit une liste filtrée, mais la logique est différente : ici le filtre sélectionne des données avant le rendu; dans l'autre version, il masque ou affiche des éléments DOM déjà présents.
+
+## Fichiers
 
 - `index.html` définit le formulaire, les boutons de filtre et la liste.
 - `todo.mjs` gère le tableau des tâches et les événements de l'interface.
-- `tasks.mjs` transforme une tâche en balisage HTML et échappe son texte.
-- `filters.mjs` filtre le tableau, puis actualise l'affichage.
+- `tasks.mjs` transforme un objet tâche en balisage HTML et échappe son texte.
+- `filters.mjs` sélectionne les tâches visibles et actualise la liste.
 - `storage.mjs` valide, charge et sauvegarde les données dans `localStorage`.
+
+## Lancer la page
+
+Ouvrez `index.html` avec un serveur web local, par exemple Live Server dans VS Code. Bootstrap 5.3.3 est chargé depuis un CDN; une connexion Internet est nécessaire pour ses styles.
