@@ -1,10 +1,9 @@
-
 const STORAGE_KEY = "tasksWithFilters";
 
-export function saveTasks(taskList) {
+export function saveTasks(taskListElement) {
   const tasks = [];
 
-  taskList.querySelectorAll("li").forEach((li) => {
+  taskListElement.querySelectorAll("li").forEach((li) => {
     const input = li.querySelector(".edit-input");
     const span = li.querySelector("span");
 

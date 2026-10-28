@@ -1,4 +1,4 @@
-export function createTask(taskList, text, completed = false) {
+export function createTask(taskListElement, text, completed = false) {
   const li = document.createElement("li");
 
   li.classList.add(
@@ -50,7 +50,7 @@ export function createTask(taskList, text, completed = false) {
   buttons.append(editButton, removeButton);
   li.append(content, buttons);
 
-  taskList.append(li);
+  taskListElement.append(li);
 
   return li;
 }

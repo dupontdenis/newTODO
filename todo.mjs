@@ -1,6 +1,6 @@
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
-const taskList = document.querySelector("#tasks");
+const taskListElement = document.querySelector("#tasks");
 const submitButton = form.querySelector("button[type='submit']");
 
 submitButton.disabled = true;
@@ -39,7 +39,7 @@ form.addEventListener("submit", (event) => {
 
   li.append(span, removeButton);
 
-  taskList.append(li);
+  taskListElement.append(li);
 
   // Vider le champ de saisie
   taskInput.value = "";
@@ -50,7 +50,7 @@ form.addEventListener("submit", (event) => {
   submitButton.classList.add("btn-secondary");
 });
 
-taskList.addEventListener("click", (event) => {
+taskListElement.addEventListener("click", (event) => {
   if (event.target.classList.contains("remove-btn")) {
     event.target.parentElement.remove();
   }
