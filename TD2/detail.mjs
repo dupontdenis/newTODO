@@ -1,4 +1,5 @@
 import { loadTasks } from "./storage.mjs";
+import { escapeHTML } from "./utils.mjs";
 
 const detail = document.querySelector("#detail");
 
@@ -36,16 +37,3 @@ if (task) {
     `;
 }
 
-function escapeHTML(text) {
-  return String(text).replace(/[&<>"']/g, (character) => {
-    const entities = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    };
-
-    return entities[character];
-  });
-}

@@ -1,7 +1,8 @@
 import { createTask } from "./tasks.mjs";
 import { loadTasks, saveTasks } from "./storage.mjs";
+import { escapeHTML } from "./utils.mjs";
 
-const taskList = document.querySelector("#tasks");
+const taskListElt = document.querySelector("#tasks");
 const form = document.querySelector("form");
 const titleInput = document.querySelector("#title");
 const contentInput = document.querySelector("#content");
@@ -11,7 +12,7 @@ let tasks = loadTasks();
 
 // Afficher la liste
 function renderTasks() {
-  taskList.innerHTML = tasks.map((task) => createTask(task)).join("");
+  taskListElt.innerHTML = tasks.map((task) => createTask(task)).join("");
 }
 
 // Ajouter une tâche
@@ -42,7 +43,7 @@ form.addEventListener("submit", (event) => {
 });
 
 // Afficher le contenu d'une tâche
-taskList.addEventListener("click", (event) => {
+taskListElt.addEventListener("click", (event) => {
   const button = event.target.closest('[data-action="detail"]');
 
   if (!button) {
@@ -70,20 +71,7 @@ taskList.addEventListener("click", (event) => {
   `;
 });
 
-// Échapper les données avant leur insertion dans le HTML
-function escapeHTML(text) {
-  return String(text).replace(/[&<>"']/g, (character) => {
-    const entities = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    };
 
-    return entities[character];
-  });
-}
 
 // Affichage initial
 renderTasks();

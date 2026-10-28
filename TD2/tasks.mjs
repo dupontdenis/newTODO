@@ -1,3 +1,5 @@
+import { escapeHTML } from "./utils.mjs";
+
 export function createTask(task) {
   const params = new URLSearchParams({
     id: task.id,
@@ -12,16 +14,3 @@ export function createTask(task) {
     `;
 }
 
-function escapeHTML(text) {
-  return String(text).replace(/[&<>"']/g, (character) => {
-    const entities = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    };
-
-    return entities[character];
-  });
-}
